@@ -37,16 +37,22 @@ namespace loginApp.Controllers {
         }
 
         [HttpPost]
-        public string Login (UserDTO model) {
-            var name = model.username;
+        public async Task<IActionResult> Login (UserDTO model) {
+            var username = model.username;
             var password = model.password;
 
-            var userFromDB = db.User.Find (model.username);
-
+            var userFromDB = await db.User.FindAsync (username);
+            // return userFromDB.password;
+            Console.Out.WriteLine (getHash (password));
+            if (userFromDB == null) {
+                return RedirectToAction ("Index");
+            }
             if (userFromDB.password == getHash (password)) {
-                return $"Welcome: {userFromDB.name}";
+                // return $"Welcome: {userFromDB.name}";
+                return View (model.name);
             } else {
-                return "Invalid Password";
+                // return "Invalid Password";
+                return RedirectToAction ("Index");
             }
         }
 
@@ -58,7 +64,7 @@ namespace loginApp.Controllers {
                 // Get the hashed string.  
                 var hash = BitConverter.ToString (hashedBytes).Replace ("-", "").ToLower ();
                 // Print the string.   
-                Console.WriteLine (hash);
+                // Console.WriteLine (hash);
                 return hash;
             }
         }
