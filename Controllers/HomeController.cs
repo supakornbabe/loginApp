@@ -49,8 +49,10 @@ namespace loginApp.Controllers {
             }
             if (userFromDB.password == getHash (password)) {
                 // return $"Welcome: {userFromDB.name}";
+                // @todo Display Name in Login View
                 return View (model.name);
             } else {
+                
                 // return "Invalid Password";
                 return RedirectToAction ("Index");
             }
