@@ -48,8 +48,6 @@ namespace loginApp.Controllers {
                 return RedirectToAction ("Index");
             }
             if (userFromDB.password == getHash (password)) {
-                // return $"Welcome: {userFromDB.name}";
-                // @todo #1 Display Name in Login View
                 ViewBag.Username = model.username;
                 return View ();
             } else {
