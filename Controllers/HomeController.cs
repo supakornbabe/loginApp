@@ -50,7 +50,8 @@ namespace loginApp.Controllers {
             if (userFromDB.password == getHash (password)) {
                 // return $"Welcome: {userFromDB.name}";
                 // @todo #1 Display Name in Login View
-                return View (model.name);
+                ViewBag.Username = model.username;
+                return View ();
             } else {
                 
                 // return "Invalid Password";
